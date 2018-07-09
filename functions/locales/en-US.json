@@ -1,0 +1,8 @@
+{
+  "WELCOME": "Please say decimal or hexadecimal number.",
+  "INVALID": "Please say decimal or hexadecimal number.",
+  "HEX": "The decimal number {{{input}}} is a {{{hex}}} hexadecimal number.",
+  "DEC": "The hexadecimal number {{{input}}} is a {{{dec}}} decimal number.",
+  "QUIT_PHRASE": "Quit,Finish,Stop,Bye,See you,End,Thank you,Thanks,Cancel",
+  "QUIT": "See you again"
+}

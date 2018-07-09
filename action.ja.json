@@ -1,0 +1,27 @@
+{
+  "actions": [
+    {
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "myFulfillment"
+      },
+      "intent": {
+        "name": "actions.intent.MAIN",
+        "trigger": {
+          "queryPatterns": [
+            "ヘキサ 変換につないで",
+            "ヘキサ 変換と話す"
+          ]
+        }
+      }
+    }
+  ],
+  "conversations": {
+    "myFulfillment": {
+      "name": "myFulfillment",
+      "url": "https://us-central1-hexadecimal-conversion.cloudfunctions.net/fulfillment",
+      "fulfillmentApiVersion": 2
+    }
+  },
+  "locale": "ja"
+}
