@@ -46,15 +46,15 @@ const createResponse = (conv, raw: string): Promise<SimpleResponse> => {
     if (input.match(/^[0-9]+$/)) {
       resolve(new SimpleResponse(
         {
-          text: createHexadecimalResponseForDisplay(input) + createDecimalResponseForDisplay(input),
-          speech: `<speak>${createHexadecimalResponseForSpeech(input) + createDecimalResponseForSpeech(input)}</speak>`
+          text: createHexadecimalResponseForDisplay(input) + createDecimalResponseForDisplay(input) + i18n.__("MORE"),
+          speech: `<speak>${createHexadecimalResponseForSpeech(input) + createDecimalResponseForSpeech(input)}</speak>` + i18n.__("MORE")
         }
       ))
     } else if (input.match(/^[0-9a-fA-F]+$/)) {
       resolve(new SimpleResponse(
         {
-          text: createDecimalResponseForDisplay(input),
-          speech: `<speak>${createDecimalResponseForSpeech(input)}</speak>`
+          text: createDecimalResponseForDisplay(input) + i18n.__("MORE"),
+          speech: `<speak>${createDecimalResponseForSpeech(input)}</speak>` + i18n.__("MORE")
         }
       ))
     } else {
