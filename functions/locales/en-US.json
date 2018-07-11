@@ -3,6 +3,7 @@
   "INVALID": "Please say decimal or hexadecimal number.",
   "HEX": "The decimal number {{{input}}} is a {{{hex}}} hexadecimal number.",
   "DEC": "The hexadecimal number {{{input}}} is a {{{dec}}} decimal number.",
-  "QUIT_PHRASE": "Quit,Finish,Stop,Bye,See you,End,Thank you,Thanks,Cancel",
+  "MORE": "Please tell me other number you want to know.",
+  "QUIT_PHRASE": "Quit,Finish,Stop,Bye,See you,End,Thank you,Thanks,Cancel,Nothing",
   "QUIT": "See you again"
 }
