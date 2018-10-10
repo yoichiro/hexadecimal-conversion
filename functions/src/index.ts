@@ -47,19 +47,26 @@ const createResponse = (conv, raw: string): Promise<SimpleResponse> => {
       resolve(new SimpleResponse(
         {
           text: createHexadecimalResponseForDisplay(input) + createDecimalResponseForDisplay(input) + i18n.__("MORE"),
-          speech: `<speak>${createHexadecimalResponseForSpeech(input) + createDecimalResponseForSpeech(input)}</speak>` + i18n.__("MORE")
+          speech: `<speak>${createHexadecimalResponseForSpeech(input)}${createDecimalResponseForSpeech(input)}${i18n.__("MORE")}</speak>`
         }
       ))
     } else if (input.match(/^[0-9a-fA-F]+$/)) {
       resolve(new SimpleResponse(
         {
           text: createDecimalResponseForDisplay(input) + i18n.__("MORE"),
-          speech: `<speak>${createDecimalResponseForSpeech(input)}</speak>` + i18n.__("MORE")
+          speech: `<speak>${createDecimalResponseForSpeech(input)}${i18n.__("MORE")}</speak>`
         }
       ))
     } else {
       reject()
     }
+  })
+}
+
+const containQuitPhrase= (raw: string): boolean => {
+  const quitPhrases = i18n.__("QUIT_PHRASE").split(",")
+  return quitPhrases.some((phrase: string): boolean => {
+    return raw.toLowerCase().indexOf(phrase.toLowerCase()) !== -1
   })
 }
 
@@ -69,7 +76,7 @@ app.intent("actions.intent.MAIN", (conv): Promise<void> | void => {
   const triggerQuery = conv.arguments.parsed.get("trigger_query")
   if (triggerQuery) {
     return createResponse(conv, triggerQuery.toString()).then(response => {
-      conv.close(response)
+      conv.ask(response)
     }).catch((): void => {
       conv.ask(i18n.__("WELCOME"))
     })
@@ -84,7 +91,7 @@ app.intent("actions.intent.TEXT", (conv, raw): Promise<void> => {
     conv.data['invalidCount'] = 0
     conv.ask(response)
   }).catch((): void => {
-    if (i18n.__("QUIT_PHRASE").split(",").indexOf(raw) !== -1) {
+    if (containQuitPhrase(raw)) {
       conv.close(i18n.__("QUIT"))
     } else {
       const currentInvalidCount = conv.data['invalidCount']
