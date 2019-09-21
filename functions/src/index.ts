@@ -8,9 +8,7 @@ i18n.configure({
   defaultLocale: "ja-JP"
 })
 
-const app = actionssdk({
-  debug: true
-})
+const app = actionssdk()
 
 const createHexadecimalResponseForDisplay = (input: string): string => {
   return i18n.__("HEX", {
@@ -77,11 +75,14 @@ app.intent("actions.intent.MAIN", (conv): Promise<void> | void => {
   if (triggerQuery) {
     return createResponse(conv, triggerQuery.toString()).then(response => {
       conv.ask(response)
+      console.log('conv', JSON.stringify(conv))
     }).catch((): void => {
       conv.ask(i18n.__("WELCOME"))
+      console.log('conv', JSON.stringify(conv))
     })
   } else {
     conv.ask(i18n.__("WELCOME"))
+    console.log('conv', JSON.stringify(conv))
   }
 })
 
@@ -90,6 +91,8 @@ app.intent("actions.intent.TEXT", (conv, raw): Promise<void> => {
   return createResponse(conv, raw).then((response: SimpleResponse): void => {
     conv.data['invalidCount'] = 0
     conv.ask(response)
+    console.log('conv', JSON.stringify(conv))
+    console.log('conv.body', JSON.stringify(conv.body))
   }).catch((): void => {
     if (containQuitPhrase(raw)) {
       conv.close(i18n.__("QUIT"))
@@ -102,6 +105,7 @@ app.intent("actions.intent.TEXT", (conv, raw): Promise<void> => {
         conv.ask(i18n.__("INVALID"))
       }
     }
+    console.log('conv', JSON.stringify(conv))
   })
 })
 
